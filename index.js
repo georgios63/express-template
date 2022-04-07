@@ -33,7 +33,7 @@ app.use(bodyParserMiddleWare);
  */
 
 app.use("/auth", authRouter);
-app.use("/", homeRouter);
+app.use("/spaces", homeRouter);
 
 // POST endpoint which requires a token for testing purposes, can be removed
 app.post("/authorized_post_request", authMiddleWare, (req, res) => {

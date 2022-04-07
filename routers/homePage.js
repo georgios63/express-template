@@ -18,9 +18,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const spaceId = req.params.id;
-    const storiesById = await Stories.findAll({
-      include: [{ model: Spaces, where: { id: spaceId }, right: true }],
-    });
+    const storiesById = await Stories.findAll({ where: { spaceId } });
 
     res.send(storiesById);
   } catch (error) {
