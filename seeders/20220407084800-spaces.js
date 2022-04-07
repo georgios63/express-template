@@ -19,7 +19,7 @@ module.exports = {
           description: "A tell all tale",
           createdAt: new Date(),
           updatedAt: new Date(),
-          userId: 1,
+          userId: user1.id,
         },
         {
           title: "I am a dummy",
@@ -27,7 +27,7 @@ module.exports = {
           color: "#EDEDED",
           createdAt: new Date(),
           updatedAt: new Date(),
-          userId: 2,
+          userId: user2.id,
         },
       ],
       {}
