@@ -17,15 +17,32 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
+    const userId = req.params.id;
+    const spaceById = await Spaces.findOne({
+      where: { userId },
+      include: [
+        {
+          model: Stories,
+          where: { id: userId },
+          right: true,
+        },
+      ],
+    });
+    res.send(spaceById);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.get("/stories/:id", async (req, res) => {
+  try {
     const spaceId = req.params.id;
     const storiesById = await Stories.findAll({
-      // where: { spaceId },
-      // order: { createdAt },
+      where: { spaceId },
       include: [
         {
           model: Spaces,
-          where: { spaceId },
-          order: { createdAt },
+          where: { id: spaceId },
           right: true,
         },
       ],
