@@ -49,14 +49,42 @@ router.get("/mySpace/myStories", authMiddleWare, async (req, res, next) => {
 
 router.post("/mySpace", authMiddleWare, async (req, res) => {
   try {
-    const story = req.body;
+    const { name, content, imageUrl, spaceId } = req.body;
+
     const newStory = await Stories.create({
-      name: story.name,
-      content: story.content,
-      imageUrl: story.imageUrl,
+      where: { spaceId },
+      name,
+      content,
+      imageUrl,
+      spaceId,
     });
 
+    // console.log(newStory);
     res.send(newStory);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.put("/mySpace", authMiddleWare, async (req, res) => {
+  try {
+    const { title, description, backgroundColor, color, id } = req.body;
+
+    const newSpace = await Spaces.findOne({ where: { userId: id } }).then(
+      (result) => {
+        result.update({
+          title,
+          description,
+          backgroundColor,
+          color,
+        });
+        result.save();
+      }
+    );
+
+    // await newSpace.save();
+
+    res.send(newSpace);
   } catch (error) {
     console.log(error);
   }
