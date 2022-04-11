@@ -71,14 +71,14 @@ router.put("/mySpace", authMiddleWare, async (req, res) => {
     const { title, description, backgroundColor, color, id } = req.body;
 
     const newSpace = await Spaces.findOne({ where: { userId: id } }).then(
-      (result) => {
-        result.update({
+      (newSpace) => {
+        newSpace.update({
           title,
           description,
           backgroundColor,
           color,
         });
-        result.save();
+        newSpace.save();
       }
     );
 
